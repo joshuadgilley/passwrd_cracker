@@ -25,25 +25,31 @@
 
 import hashlib, binascii
 
-hexCode = input("Please plug in file:")
+hexCode = "Maggie:ab2620f9b7154d9f9dc1b3c2d949d85d595fe77f45411b3dbe6e5b47da564177:42:20:MaggieSimpson:/home/maggie:/bin/tcsh"
 
 list = hexCode.split(":")
 
 password = list[1]
 
+print(password)
 
 # fileIO
 
-crypt = hashlib.sha256()
-
-infile = open("words.txt")
+infile = open("words.txt", "r")
+count = 0
 
 for line in infile:
 
-    crypt.update(bytes(line))
+    line = line.strip()
+
+    crypt = hashlib.sha256()
+    crypt.update(line.encode('utf-8'))
     newPass = crypt.hexdigest()
+
+    print(newPass)
+
     if password == newPass:
-        print(newPass + "is the password...")
+        print(line + " is the password...")
         break
 
 
