@@ -53,4 +53,6 @@ for line in infile:
         break
 
 
+def addAsandLs():
+    print("hello world")
 
