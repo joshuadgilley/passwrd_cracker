@@ -25,7 +25,7 @@
 
 import hashlib, types
 
-hexCode = "homer:84b175349a3d5a8bcabda1ab8eb84e3c36139f27e3a04b17b47c497a3b577940:20:Homer Simpson:/home/homer:/bin/tcsh"
+hexCode = "lisa:e77599c90db264dbe4b449565a03b5a26c989e975089fcc7dc3c55a720928e66:353:Lisa Simpson:/home/lisa:/bin/tcsh"
 
 arr = hexCode.split(":")
 
@@ -55,7 +55,7 @@ def five_digit_special_begin(num):
 def five_letter_a_l_switch(word):
     valid = False
 
-    if len(word) == 5 and word.isalpha() and ('a' in word and 'l' in word):
+    if len(word) == 5 and word.isalpha() and (word.find('a') != -1 or word.find('l') != -1):
         valid = True
 
     return valid
@@ -86,12 +86,22 @@ def rules(word):
 
     elif five_letter_a_l_switch(word):
         w = list(word)
-        i = w.index('a')
-        j = w.index('l')
-        arr[i] = '@'
-        arr[j] = '1'
-        "".join(w)
-        return str(w)
+
+        if word.find('a') != -1 and word.find('l') != -1:
+            i = w.index('a')
+            j = w.index('l')
+            w[i] = '@'
+            w[j] = '1'
+            b = ''.join(w)
+        elif word.find('a') != -1:
+            i = w.index('a')
+            w[i] = '@'
+            b = ''.join(w)
+        else:
+            i = w.index('l')
+            w[i] = '1'
+            b = ''.join(w)
+        return b
 
     elif up_to_seven_digits(word):
         return str(word)
