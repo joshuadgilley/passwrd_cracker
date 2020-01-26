@@ -6,6 +6,14 @@
 
 # import hashing and graphics library
 import hashlib
+from itertools import product
+
+# crypt function
+def cryptic(word_or_num):
+    crypt = hashlib.sha256()
+    crypt.update(word_or_num.encode('utf-8'))
+    encrypted = crypt.hexdigest()
+    return encrypted
 
 # VALIDATION METHODS
 def seven_letter_cap(word):
@@ -95,6 +103,55 @@ def rules(word):
         return ""
 
 
+# Rule #4 any word that is made with digits up to 7 digits length.
+def up_to_seven_digits():
+    count = 0
+    i = 7
+    cart = []
+
+    while(i > 0):
+        prod = product('0123456789', repeat=i)
+
+        for it in prod:
+            string = ""
+            count += 1
+            for element in it:
+                string += str(element)
+            cart.append(string)
+        i -= 1
+
+    return cart
+
+def cart_helper(cart, password):
+
+    for it in cart:
+        if password == cryptic(it):
+            print(it + " is the password")
+            exit(0)
+
+
+def five_digit_list():
+    # creating cartesian product
+    last_four = product('0123456789#!*~', repeat=4)
+    # creating cartesian and final list
+    cart = []
+    count = 0
+    final = []
+    # creating a list of the cartesian products and adding them to cartesian list
+    for it in last_four:
+        string = ""
+        for element in it:
+            string += str(element)
+        cart.append(string)
+    beg = ['!', '*', '#', '~']
+    for i in beg:
+        for j in cart:
+            final.append(i+j)
+            count += 1
+    return final
+
+
+
 def main():
 
     # open .txt file
@@ -122,9 +179,7 @@ def main():
         if isinstance(fin, list):
             j = 0
             while j < len(fin):
-                crypt = hashlib.sha256()
-                crypt.update(fin[j].encode('utf-8'))
-                new_pass = crypt.hexdigest()
+                new_pass = cryptic(fin[j])
                 j += 1
                 if password == new_pass:
                     # post cracked password
@@ -137,14 +192,19 @@ def main():
 
         # if fin is a tuple/string the hash it and compare!
         elif not(isinstance(fin, list)):
-            crypt = hashlib.sha256()
-            crypt.update(fin.encode('utf-8'))
-            new_pass = crypt.hexdigest()
+            new_pass = cryptic(fin)
             if password == new_pass:
                 print(fin + " is the password")
                 break
 
-    # here we have broken out of the dictionary meaning that we need to check rule #2 and #4
+    # Here we have broken out of the dictionary meaning that we need to check rule #2 and #4
+    five_digit_product = five_digit_list()
+    cart_helper(five_digit_product, password)
+
+    cartesian_product = up_to_seven_digits()
+    cart_helper(cartesian_product, password)
+
+    print("Couldn't crack the password... :(")
 
 
 
