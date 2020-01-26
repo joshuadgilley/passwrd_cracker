@@ -177,13 +177,12 @@ def main():
 
         # if fin is a List, create hashes for every element and compare
         if isinstance(fin, list):
-            j = 0
-            while j < len(fin):
-                new_pass = cryptic(fin[j])
-                j += 1
+
+            for it in fin:
+                new_pass = cryptic(it)
                 if password == new_pass:
                     # post cracked password
-                    print(fin[j] + " is the password")
+                    print(it + " is the password")
                     break
 
         # if word doesn't fit rules, skip it
