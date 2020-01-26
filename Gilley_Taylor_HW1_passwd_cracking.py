@@ -23,18 +23,11 @@
 #
 # length('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824')
 
-import hashlib, types
-
-hexCode = "lisa:e77599c90db264dbe4b449565a03b5a26c989e975089fcc7dc3c55a720928e66:353:Lisa Simpson:/home/lisa:/bin/tcsh"
-
-arr = hexCode.split(":")
-
-password = arr[1]
-
-print(password)
+import hashlib
+from graphics import *
 
 
-# validation methods for main rules method
+# validation method
 def seven_letter_cap(word):
     valid = False
 
@@ -43,7 +36,7 @@ def seven_letter_cap(word):
 
     return valid
 
-
+# validation method
 def five_digit_special_begin(num):
     valid = False
 
@@ -52,6 +45,7 @@ def five_digit_special_begin(num):
 
     return valid
 
+# validation method
 def five_letter_a_l_switch(word):
     valid = False
 
@@ -60,6 +54,7 @@ def five_letter_a_l_switch(word):
 
     return valid
 
+# validation method
 def up_to_seven_digits(num):
     valid = False
 
@@ -68,7 +63,7 @@ def up_to_seven_digits(num):
 
     return valid
 
-# finds single words
+# validation method
 def  single_words_no_spaces(word):
     valid = False
 
@@ -81,9 +76,13 @@ def  single_words_no_spaces(word):
 # main rules method
 def rules(word):
 
+    # A five digit password with at least one of the following special characters
+    # in the beginning: *, ~, !, #
     if five_digit_special_begin(word):
         return str(word)
 
+    # A five char word with the letter 'a' in it which gets replaced with the special
+    # character @ and the character ‘l’ is substituted by the number ‘1’.
     elif five_letter_a_l_switch(word):
         w = list(word)
 
@@ -103,10 +102,15 @@ def rules(word):
             b = ''.join(w)
         return b
 
+    # Any word that is made with digits up to 7 digits length.
     elif up_to_seven_digits(word):
         return str(word)
+
+    # Any number of chars single word from /usr/share/dict/words (Linux or Mac)
     elif single_words_no_spaces(word):
         return str(word)
+
+    # If dictionary word doesn't match rules, return empty string
     else:
         return ""
 
@@ -114,13 +118,56 @@ def rules(word):
 
 
 
+
+
 def main():
+    # GUI
+    win = GraphWin("Josh & Chris Password Cracking Tool", 1000, 1000)
+    win.setBackground("palevioletred")
+    message = Text(Point(500,200), "Pass Kraken")
+    message.setTextColor("black")
+    message.setFace("courier")
+    message.setSize(36)
+    message.setStyle("bold italic")
+    inputbox = Entry(Point(500,300), 70)
+    inputbox.setTextColor("black")
+    subText = Text(Point(500, 350), "Submit")
+    subText.setTextColor("black")
+    subText.setFace("courier")
+    subText.setSize(18)
+    subText.draw(win)
+
+    result = Text(Point(500, 600), "Unable to Crack")
+    result.setSize(36)
+    result.setFace("courier")
+
+    exit = Text(Point(500, 640), "Exit")
+    exit.setSize(18)
+    exit.setFace("courier")
+    exit.setStyle("italic")
+
+
+    inputbox.draw(win)
+    message.draw(win)
+    win.getMouse()
+
+
+    password_split = inputbox.getText().split(":")
+    password = password_split[1]
+
+
+
+    # open .txt file
     infile = open("words.txt", "r")
 
+    # cycle through each word in file
     for line in infile:
 
+        #clean word of any added additional (/n /t etc..)
         line = line.strip()
 
+        # seven char word which gets the first letter capitalized and a 1-digit number appended.
+        # if word qualifies, this creates a list of words with the ^ specifications
         if seven_letter_cap(line):
             word_list = []
             i = 0
@@ -128,9 +175,11 @@ def main():
                 word_list.append(line.capitalize() + str(i))
                 i += 1
             fin = word_list
+        # if word is not seven_letter_cap list this fin = tuple, word, int, etc.
         else:
             fin = rules(line)
 
+        # if fin is a List, create hashes for every element and compare
         if isinstance(fin, list):
             j = 0
             while j < len(fin):
@@ -139,15 +188,28 @@ def main():
                 new_pass = crypt.hexdigest()
                 j += 1
                 if password == new_pass:
-                    print(fin[j] + " is the password")
+                    result.setText(fin[j] + " is your cracked password!")
+                    result.draw(win)
+                    exit.draw(win)
+                    win.getMouse()
+                    break
+
+        # if word doesn't fit rules, skip it
         elif fin == "":
             continue
+
+        # if fin is a tuple/string the hash it and compare!
         else:
             crypt = hashlib.sha256()
             crypt.update(fin.encode('utf-8'))
             new_pass = crypt.hexdigest()
             if password == new_pass:
-                print(fin + " is the password")
+                result.setText(fin + " is your cracked password!")
+                result.draw(win)
+                exit.draw(win)
+                win.getMouse()
+
+
 
 
 main()
