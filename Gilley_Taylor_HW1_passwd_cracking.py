@@ -23,36 +23,122 @@
 #
 # length('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824')
 
-import hashlib, binascii
+import hashlib, types
 
 hexCode = "Maggie:ab2620f9b7154d9f9dc1b3c2d949d85d595fe77f45411b3dbe6e5b47da564177:42:20:MaggieSimpson:/home/maggie:/bin/tcsh"
 
-list = hexCode.split(":")
+arr = hexCode.split(":")
 
-password = list[1]
+password = arr[1]
 
 print(password)
 
+
+# validation methods for main rules method
+def seven_letter_cap(word):
+    valid = False
+
+    if len(word) == 7 and word.isalpha:
+        valid = True
+
+    return valid
+
+
+def five_digit_special_begin(num):
+    valid = False
+
+    if ('*' in num[:1] or '~' in num[:1] or '!' in num[:1] or '#' in num[:1]) and len(num) == 5:
+        valid = True
+
+    return valid
+
+def five_letter_a_l_switch(word):
+    valid = False
+
+    if len(word) == 5 and word.isalpha() and ('a' in word and 'l' in word):
+        valid = True
+
+    return valid
+
+def up_to_seven_digits(num):
+    valid = False
+
+    if len(num) <= 7 and num.isnumeric():
+        valid = True
+
+    return valid
+
+def  single_words_no_spaces(word):
+    valid = False
+
+    if word.isalpha() and ' ' in word == False:
+        valid = True
+
+    return valid
+
+
+# main rules method
+def rules(word):
+
+    if five_digit_special_begin(word):
+        return str(word)
+
+    elif five_letter_a_l_switch(word):
+        w = list(word)
+        i = w.index('a')
+        j = w.index('l')
+        arr[i] = '@'
+        arr[j] = '1'
+        "".join(w)
+        return str(w)
+
+    elif up_to_seven_digits(word):
+        return str(word)
+    elif single_words_no_spaces(word):
+        return str(word)
+    else:
+        return ""
+
 # fileIO
 
-infile = open("words.txt", "r")
-count = 0
-
-for line in infile:
-
-    line = line.strip()
-
-    crypt = hashlib.sha256()
-    crypt.update(line.encode('utf-8'))
-    newPass = crypt.hexdigest()
-
-    print(newPass)
-
-    if password == newPass:
-        print(line + " is the password...")
-        break
 
 
-def addAsandLs():
-    print("hello world")
+def main():
+    infile = open("words.txt", "r")
+
+    for line in infile:
+
+        line = line.strip()
+
+        if seven_letter_cap(line):
+            word_list = []
+            i = 0
+            line.capitalize()
+            while i < 10:
+                word_list.append(line + str(i))
+                i += 1
+            fin = word_list
+        else:
+            fin = rules(line)
+
+        if isinstance(fin, list):
+            j = 0
+            while j < len(fin):
+                crypt = hashlib.sha256()
+                crypt.update(fin[j].encode('utf-8'))
+                new_pass = crypt.hexdigest()
+                j += 1
+                if password == new_pass:
+                    print(fin[j] + "is the password")
+        elif fin == "":
+            continue
+        else:
+            crypt = hashlib.sha256()
+            crypt.update(fin.encode('utf-8'))
+            new_pass = crypt.hexdigest()
+            if password == new_pass:
+                print(fin + "is the password")
+
+
+main()
 
