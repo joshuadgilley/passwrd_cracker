@@ -6,8 +6,6 @@
 
 # import hashing and graphics library
 import hashlib
-from graphics import *
-
 
 # VALIDATION METHODS
 def seven_letter_cap(word):
@@ -55,17 +53,21 @@ def  single_words_no_spaces(word):
     return valid
 
 
+# seven_letter_cap_func that returns the list
+def seven_letter_cap_func(word):
+    word_list = []
+    i = 0
+    while i < 10:
+        word_list.append(word.capitalize() + str(i))
+        i += 1
+    return word_list
+
+
 # MAIN RULES METHOD (USING VALIDATION METHODS)
 def rules(word):
-
-    # A five digit password with at least one of the following special characters
-    # in the beginning: *, ~, !, #
-    if five_digit_special_begin(word):
-        return str(word)
-
     # A five char word with the letter 'a' in it which gets replaced with the special
     # character @ and the character ‘l’ is substituted by the number ‘1’.
-    elif five_letter_a_l_switch(word):
+    if five_letter_a_l_switch(word):
         w = list(word)
 
         if word.find('a') != -1 and word.find('l') != -1:
@@ -83,10 +85,6 @@ def rules(word):
             w[i] = '1'
             b = ''.join(w)
         return b
-
-    # Any word that is made with digits up to 7 digits length.
-    elif up_to_seven_digits(word):
-        return str(word)
 
     # Any number of chars single word from /usr/share/dict/words (Linux or Mac)
     elif single_words_no_spaces(word):
@@ -114,12 +112,8 @@ def main():
         # seven char word which gets the first letter capitalized and a 1-digit number appended.
         # if word qualifies, this creates a list of words with the ^ specifications
         if seven_letter_cap(line):
-            word_list = []
-            i = 0
-            while i < 10:
-                word_list.append(line.capitalize() + str(i))
-                i += 1
-            fin = word_list
+            fin = seven_letter_cap_func(line)
+
         # if word is not seven_letter_cap list this fin = tuple, word, int, etc.
         else:
             fin = rules(line)
@@ -149,6 +143,9 @@ def main():
             if password == new_pass:
                 print(fin + " is the password")
                 break
+
+    # here we have broken out of the dictionary meaning that we need to check rule #2 and #4
+
 
 
 main()
