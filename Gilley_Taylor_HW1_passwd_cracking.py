@@ -98,65 +98,12 @@ def rules(word):
 
 
 def main():
-    # GUI
-    # Set window
-    win = GraphWin("Pass Kraken", 1000, 800)
-    win.setBackground("teal")
-
-    # Set title, entry bar, submit
-    message = Text(Point(500,200), "Pass Kraken")
-    message.setTextColor("lightcyan")
-    message.setFace("courier")
-    message.setSize(36)
-    message.setStyle("bold italic")
-    inputbox = Entry(Point(500,300), 70)
-    inputbox.setTextColor("lightcyan")
-    submit = Text(Point(700, 330), "Submit")
-    submit.setTextColor("lightcyan")
-    submit.setFace("courier")
-    submit.setSize(18)
-
-    # kraken img credit: Artist: CHENXIN Website: pngtree.com
-    kraken = Image(Point(470, 480), "newoc.png")
-
-    # draw kraken, submit, message, entry box
-    kraken.draw(win)
-    submit.draw(win)
-    inputbox.draw(win)
-    message.draw(win)
-
-    # after retrieving entry, display results and exit
-    result = Text(Point(500, 600), "Unable to Crack")
-    result.setSize(36)
-    result.setFill("teal")
-    result.setOutline("dimgrey)")
-    result.setTextColor("white")
-    result.setFace("courier")
-
-    result2 = Text(Point(500, 600), "Unable to Crack")
-    result2.setSize(36)
-    result2.setFill("teal")
-    result2.setOutline("dimgrey)")
-    result2.setTextColor("white")
-    result2.setFace("courier")
-
-    exit = Text(Point(500, 640), "Exit")
-    exit.setSize(20)
-    exit.setTextColor("lightcyan")
-    exit.setFace("courier")
-    exit.setStyle("italic")
-
-    # get a click to close
-    win.getMouse()
-
-    # password from entry bar
-    password_split = inputbox.getText().split(":")
-    password = password_split[1]
 
     # open .txt file
     infile = open("words.txt", "r")
 
-    cracked = False
+    password_split = input("Please enter the username:password:other::::").split(":")
+    password = password_split[1]
 
     # cycle through each word in file
     for line in infile:
@@ -187,12 +134,7 @@ def main():
                 j += 1
                 if password == new_pass:
                     # post cracked password
-                    cracked = True
-                    result.setText(fin[j] + " is your cracked password!")
-                    result.draw(win)
-                    exit.draw(win)
-                    win.getMouse()
-                    win.close()
+                    print(fin[j] + " is the password")
                     break
 
         # if word doesn't fit rules, skip it
@@ -205,24 +147,8 @@ def main():
             crypt.update(fin.encode('utf-8'))
             new_pass = crypt.hexdigest()
             if password == new_pass:
-                cracked = True
-
-                # post cracked password
-                result2.setText(fin + " is your cracked password!")
-                result2.draw(win)
-                exit.draw(win)
-                win.getMouse()
-                win.close()
+                print(fin + " is the password")
                 break
-
-    # if the password is not matched, output message saying so
-    if not cracked:
-        # post failed password retrieval in GUI
-        result.setText("Unable to find Password..")
-        result.draw(win)
-        exit.draw(win)
-        win.getMouse()
-        win.close()
 
 
 main()
