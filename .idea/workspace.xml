@@ -17,12 +17,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$USER_HOME$" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="720" />
-    <option name="y" value="23" />
-    <option name="width" value="720" />
-    <option name="height" value="808" />
-  </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -30,17 +24,17 @@
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="HW1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="/usr/local/bin/python3.7" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Gilley_Taylor_HW1_passwd_cracking.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -68,5 +62,27 @@
       <updated>1579572443568</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="854" y="93" key="#main" timestamp="1580080003486">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="854" y="93" key="#main/0.23.1440.877@0.23.1440.877" timestamp="1580080003486" />
+    <state width="1379" height="217" key="GridCell.Tab.0.bottom" timestamp="1580080003513">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1379" height="217" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1580080003513" />
+    <state width="1379" height="217" key="GridCell.Tab.0.center" timestamp="1580080003511">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1379" height="217" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1580080003511" />
+    <state width="1379" height="217" key="GridCell.Tab.0.left" timestamp="1580080003511">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1379" height="217" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1580080003511" />
+    <state width="1379" height="217" key="GridCell.Tab.0.right" timestamp="1580080003512">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state width="1379" height="217" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1580080003512" />
   </component>
 </project>
