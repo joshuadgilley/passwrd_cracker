@@ -1,33 +1,15 @@
-# cryptography: making sensitive information unreadable and thus secure
-# encryption: transfering file from one computer to another
-# hashing: better for hashing (add salt, etc.)
+#################################################
+# Josh Gilley and Chris Taylor                ###
+# College of Charleston CS / Network Security ###
+# January 30, 2020                            ###
+#################################################
 
-
-# 100000 iteration sha256 hashing of that hash of that hash and so on...
-# great hashing with salt method
-# dk = hashlib.pbkdf2_hmac('sha256', b'hello', b's', 100000)
-# print(binascii.hexlify(dk))
-
-#crypt = hashlib.sha256()
-#crypt.update(b"programming") # b converts it into binary encoding "unicode-object"
-#print(crypt.hexdigest()) # converts string to sha256 then to hex form and prints out
-#print(crypt.digest_size)
-#print(hashlib.algorithms_available)
-
-
-#def length(string):
-    #print(len(string))
-
-# length('ab2620f9b7154d9f9dc1b3c2d949d85d595fe77f45411b3dbe6e5b47da564177')
-#
-#
-# length('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824')
-
+# import hashing and graphics library
 import hashlib
 from graphics import *
 
 
-# validation method
+# VALIDATION METHODS
 def seven_letter_cap(word):
     valid = False
 
@@ -36,7 +18,7 @@ def seven_letter_cap(word):
 
     return valid
 
-# validation method
+
 def five_digit_special_begin(num):
     valid = False
 
@@ -45,7 +27,7 @@ def five_digit_special_begin(num):
 
     return valid
 
-# validation method
+
 def five_letter_a_l_switch(word):
     valid = False
 
@@ -54,7 +36,7 @@ def five_letter_a_l_switch(word):
 
     return valid
 
-# validation method
+
 def up_to_seven_digits(num):
     valid = False
 
@@ -63,7 +45,7 @@ def up_to_seven_digits(num):
 
     return valid
 
-# validation method
+
 def  single_words_no_spaces(word):
     valid = False
 
@@ -73,7 +55,7 @@ def  single_words_no_spaces(word):
     return valid
 
 
-# main rules method
+# MAIN RULES METHOD (USING VALIDATION METHODS)
 def rules(word):
 
     # A five digit password with at least one of the following special characters
@@ -114,56 +96,72 @@ def rules(word):
     else:
         return ""
 
-# fileIO
-
-
-
-
 
 def main():
     # GUI
-    win = GraphWin("Josh & Chris Password Cracking Tool", 1000, 1000)
-    win.setBackground("palevioletred")
+    # Set window
+    win = GraphWin("Pass Kraken", 1000, 800)
+    win.setBackground("teal")
+
+    # Set title, entry bar, submit
     message = Text(Point(500,200), "Pass Kraken")
-    message.setTextColor("black")
+    message.setTextColor("lightcyan")
     message.setFace("courier")
     message.setSize(36)
     message.setStyle("bold italic")
     inputbox = Entry(Point(500,300), 70)
-    inputbox.setTextColor("black")
-    subText = Text(Point(500, 350), "Submit")
-    subText.setTextColor("black")
-    subText.setFace("courier")
-    subText.setSize(18)
-    subText.draw(win)
+    inputbox.setTextColor("lightcyan")
+    submit = Text(Point(700, 330), "Submit")
+    submit.setTextColor("lightcyan")
+    submit.setFace("courier")
+    submit.setSize(18)
 
+    # kraken img credit: Artist: CHENXIN Website: pngtree.com
+    kraken = Image(Point(470, 480), "newoc.png")
+
+    # draw kraken, submit, message, entry box
+    kraken.draw(win)
+    submit.draw(win)
+    inputbox.draw(win)
+    message.draw(win)
+
+    # after retrieving entry, display results and exit
     result = Text(Point(500, 600), "Unable to Crack")
     result.setSize(36)
+    result.setFill("teal")
+    result.setOutline("dimgrey)")
+    result.setTextColor("white")
     result.setFace("courier")
 
+    result2 = Text(Point(500, 600), "Unable to Crack")
+    result2.setSize(36)
+    result2.setFill("teal")
+    result2.setOutline("dimgrey)")
+    result2.setTextColor("white")
+    result2.setFace("courier")
+
     exit = Text(Point(500, 640), "Exit")
-    exit.setSize(18)
+    exit.setSize(20)
+    exit.setTextColor("lightcyan")
     exit.setFace("courier")
     exit.setStyle("italic")
 
-
-    inputbox.draw(win)
-    message.draw(win)
+    # get a click to close
     win.getMouse()
 
-
+    # password from entry bar
     password_split = inputbox.getText().split(":")
     password = password_split[1]
-
-
 
     # open .txt file
     infile = open("words.txt", "r")
 
+    cracked = False
+
     # cycle through each word in file
     for line in infile:
 
-        #clean word of any added additional (/n /t etc..)
+        # clean word of any added additional (/n /t etc..)
         line = line.strip()
 
         # seven char word which gets the first letter capitalized and a 1-digit number appended.
@@ -188,10 +186,13 @@ def main():
                 new_pass = crypt.hexdigest()
                 j += 1
                 if password == new_pass:
+                    # post cracked password
+                    cracked = True
                     result.setText(fin[j] + " is your cracked password!")
                     result.draw(win)
                     exit.draw(win)
                     win.getMouse()
+                    win.close()
                     break
 
         # if word doesn't fit rules, skip it
@@ -199,17 +200,29 @@ def main():
             continue
 
         # if fin is a tuple/string the hash it and compare!
-        else:
+        elif not(isinstance(fin, list)):
             crypt = hashlib.sha256()
             crypt.update(fin.encode('utf-8'))
             new_pass = crypt.hexdigest()
             if password == new_pass:
-                result.setText(fin + " is your cracked password!")
-                result.draw(win)
+                cracked = True
+
+                # post cracked password
+                result2.setText(fin + " is your cracked password!")
+                result2.draw(win)
                 exit.draw(win)
                 win.getMouse()
+                win.close()
+                break
 
-
+    # if the password is not matched, output message saying so
+    if not cracked:
+        # post failed password retrieval in GUI
+        result.setText("Unable to find Password..")
+        result.draw(win)
+        exit.draw(win)
+        win.getMouse()
+        win.close()
 
 
 main()
