@@ -25,7 +25,7 @@
 
 import hashlib, types
 
-hexCode = "Maggie:ab2620f9b7154d9f9dc1b3c2d949d85d595fe77f45411b3dbe6e5b47da564177:42:20:MaggieSimpson:/home/maggie:/bin/tcsh"
+hexCode = "homer:84b175349a3d5a8bcabda1ab8eb84e3c36139f27e3a04b17b47c497a3b577940:20:Homer Simpson:/home/homer:/bin/tcsh"
 
 arr = hexCode.split(":")
 
@@ -114,9 +114,8 @@ def main():
         if seven_letter_cap(line):
             word_list = []
             i = 0
-            line.capitalize()
             while i < 10:
-                word_list.append(line + str(i))
+                word_list.append(line.capitalize() + str(i))
                 i += 1
             fin = word_list
         else:
