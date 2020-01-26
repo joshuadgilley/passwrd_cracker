@@ -183,7 +183,7 @@ def main():
                 if password == new_pass:
                     # post cracked password
                     print(it + " is the password")
-                    break
+                    exit(0)
 
         # if word doesn't fit rules, skip it
         elif fin == "":
@@ -194,7 +194,7 @@ def main():
             new_pass = cryptic(fin)
             if password == new_pass:
                 print(fin + " is the password")
-                break
+
 
     # Here we have broken out of the dictionary meaning that we need to check rule #2 and #4
     five_digit_product = five_digit_list()
