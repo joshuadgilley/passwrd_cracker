@@ -68,10 +68,11 @@ def up_to_seven_digits(num):
 
     return valid
 
+# finds single words
 def  single_words_no_spaces(word):
     valid = False
 
-    if word.isalpha() and ' ' in word == False:
+    if word.isalpha() and word.find(" ") == -1:
         valid = True
 
     return valid
@@ -129,7 +130,7 @@ def main():
                 new_pass = crypt.hexdigest()
                 j += 1
                 if password == new_pass:
-                    print(fin[j] + "is the password")
+                    print(fin[j] + " is the password")
         elif fin == "":
             continue
         else:
@@ -137,7 +138,7 @@ def main():
             crypt.update(fin.encode('utf-8'))
             new_pass = crypt.hexdigest()
             if password == new_pass:
-                print(fin + "is the password")
+                print(fin + " is the password")
 
 
 main()
