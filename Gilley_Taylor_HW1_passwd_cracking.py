@@ -151,14 +151,25 @@ def five_digit_list():
     return final
 
 
+def main(filepath):
 
-def main():
+    # pass "no_args" for version that takes input at command line
+    # pass the filepath if you want the version that takes arguments
+    file = filepath
+    success = False
 
     # open .txt file
     infile = open("words.txt", "r")
 
-    password_split = input("Please enter the username:password:other::::").split(":")
-    password = password_split[1]
+    # non-test version
+    if file == "no_args":
+        password_split = input("Please enter the username:password:other::::").split(":")
+        password = password_split[1]
+
+    # test file version
+    else:
+        password_split = file.split(":")
+        password = password_split[1]
 
     # cycle through each word in file
     for line in infile:
@@ -181,9 +192,10 @@ def main():
             for it in fin:
                 new_pass = cryptic(it)
                 if password == new_pass:
+                    success = True
                     # post cracked password
                     print(it + " is the password")
-                    exit(0)
+                    break
 
         # if word doesn't fit rules, skip it
         elif fin == "":
@@ -193,19 +205,21 @@ def main():
         elif not(isinstance(fin, list)):
             new_pass = cryptic(fin)
             if password == new_pass:
+                success = True
                 print(fin + " is the password")
+                break
 
-
+    if not success:
     # Here we have broken out of the dictionary meaning that we need to check rule #2 and #4
-    five_digit_product = five_digit_list()
-    cart_helper(five_digit_product, password)
+        five_digit_product = five_digit_list()
+        cart_helper(five_digit_product, password)
 
-    cartesian_product = up_to_seven_digits()
-    cart_helper(cartesian_product, password)
+        cartesian_product = up_to_seven_digits()
+        cart_helper(cartesian_product, password)
 
-    print("Couldn't crack the password... :(")
+        print("Couldn't crack the password... :(")
 
 
 
-main()
-
+if __name__=="__main__":
+    main("no_args")
