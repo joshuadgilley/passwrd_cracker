@@ -7,6 +7,11 @@
 # import hashing and graphics library
 import hashlib
 from itertools import product
+import time
+
+
+# create cartesian array only one time
+cartesian = None
 
 # crypt function
 def cryptic(word_or_num):
@@ -105,22 +110,29 @@ def rules(word):
 
 # Rule #4 any word that is made with digits up to 7 digits length.
 def up_to_seven_digits():
-    count = 0
-    i = 7
-    cart = []
 
-    while(i > 0):
-        prod = product('0123456789', repeat=i)
+    global cartesian
 
-        for it in prod:
-            string = ""
-            count += 1
-            for element in it:
-                string += str(element)
-            cart.append(string)
-        i -= 1
+    if (cartesian == None):
+        count = 0
+        i = 7
+        cart = []
 
-    return cart
+        while(i > 0):
+            prod = product('0123456789', repeat=i)
+
+            for it in prod:
+                string = ""
+                count += 1
+                for element in it:
+                    string += str(element)
+                cart.append(string)
+            i -= 1
+        cartesian = cart
+        return cart
+
+    else:
+        return cartesian
 
 def cart_helper(cart, password):
 
@@ -153,6 +165,9 @@ def five_digit_list():
 
 def r_w_passwords(userIn, userOut):
 
+    total_time = 0.0
+    pass_count = 0
+
     if userIn == "no_args" and userOut == "no_args":
         userfile = input("Please enter the .txt file with 'username:password:other' on each line: ")
         user_out = input("Please enter the .txt file you would like to write to:")
@@ -166,27 +181,34 @@ def r_w_passwords(userIn, userOut):
     outfile = open(user_out, "w")
 
     for line in infile:
+        pass_count += 1
+        start = time.time()
         username = line.split(":")[0]
+        encrypted_password = line.split(":")[1]
         print("Trying to crack " + username + "'s password... ")
         cracked = main(line)
         if cracked is not None:
 
             print("Success!")
-            print("Password is: " + cracked)
-            print(cracked, file=outfile)
-            print("Wrote to " + user_out)
-            print()
-            print("-------------------------------------")
-            print()
+            print("Password is: " + encrypted_password + ":" + cracked)
+            print(encrypted_password + ":" + cracked, file=outfile)
+
+
+
 
         else:
             print("Unsuccessful :^(")
             print(username + "'s password couldn't be found...", file=outfile)
-            print("Wrote to " + user_out)
-            print()
-            print("-------------------------------------")
-            print()
 
+        endtime = time.time() - start
+        total_time += endtime
+        print("It took {0:0.2f} seconds to execute".format(endtime))
+        print()
+        print("-------------------------------------")
+        print()
+
+    print("Wrote passwords to " + user_out)
+    print("Total time to crack " + str(pass_count) + " passwords in " + userfile + ": {0:0.2f} seconds".format(total_time))
 
 
 def main(file_line):
@@ -235,13 +257,11 @@ def main(file_line):
     five_digit_product = five_digit_list()
     for it in five_digit_product:
         if password == cryptic(it):
-            print(it)
             return it
 
     cartesian_product = up_to_seven_digits()
     for it in cartesian_product:
         if password == cryptic(it):
-            print(it)
             return it
 
     return None

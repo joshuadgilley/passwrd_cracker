@@ -46,11 +46,11 @@ print("dave:87e1eb2af244cae9dbd8b67a0b49ea8c600944c8c6170710058d20a272878743:oth
 # RULE 4 ##########################################
 # Testing word that is made with digits up to 7 digits in length
 
-# Carl's passwords is 9 (the worst case in our program)
-print("carl:19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7:other", file=file)
+# Carl's passwords is 99364
+print("carl:11df08cc7f9bd4a89e51bb7f3983de4c0a82f222062af37dd960bccef9465f77:other", file=file)
 
-# Paul's password is 0000000
-print("paul:20fdf64da3cd2c78ec3c033d2ac628bacf701711fa99435ee37bef0304800dc5:other", file=file)
+# Paul's password is 4000
+print("paul:b090147020e033534635010c4f7eb6fc270d44e5df67ea9e744a8087df9ca106:other", file=file)
 
 # Samantha's password is 4736285
 print("samantha:21734eee70713f0a09a313044393af2c6a5e0e71d74f9923c42a2ba4a739f2d7:other", file=file)
