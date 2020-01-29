@@ -126,8 +126,7 @@ def cart_helper(cart, password):
 
     for it in cart:
         if password == cryptic(it):
-            print(it + " is the password")
-            exit(0)
+            return it
 
 
 def five_digit_list():
@@ -151,25 +150,51 @@ def five_digit_list():
     return final
 
 
-def main(filepath):
 
-    # pass "no_args" for version that takes input at command line
-    # pass the filepath if you want the version that takes arguments
-    file = filepath
-    success = False
+def r_w_passwords(userIn, userOut):
+
+    if userIn == "no_args" and userOut == "no_args":
+        userfile = input("Please enter the .txt file with 'username:password:other' on each line: ")
+        user_out = input("Please enter the .txt file you would like to write to:")
+
+    else:
+        userfile = userIn
+        user_out = userOut
+
+    print()
+    infile = open(userfile, "r")
+    outfile = open(user_out, "w")
+
+    for line in infile:
+        username = line.split(":")[0]
+        print("Trying to crack " + username + "'s password... ")
+        cracked = main(line)
+        if cracked is not None:
+
+            print("Success!")
+            print("Password is: " + cracked)
+            print(cracked, file=outfile)
+            print("Wrote to " + user_out)
+            print()
+            print("-------------------------------------")
+            print()
+
+        else:
+            print("Unsuccessful :^(")
+            print(username + "'s password couldn't be found...", file=outfile)
+            print("Wrote to " + user_out)
+            print()
+            print("-------------------------------------")
+            print()
+
+
+
+def main(file_line):
 
     # open .txt file
     infile = open("words.txt", "r")
 
-    # non-test version
-    if file == "no_args":
-        password_split = input("Please enter the username:password:other::::").split(":")
-        password = password_split[1]
-
-    # test file version
-    else:
-        password_split = file.split(":")
-        password = password_split[1]
+    password = file_line.split(":")[1].strip()
 
     # cycle through each word in file
     for line in infile:
@@ -192,10 +217,8 @@ def main(filepath):
             for it in fin:
                 new_pass = cryptic(it)
                 if password == new_pass:
-                    success = True
                     # post cracked password
-                    print(it + " is the password")
-                    break
+                    return it
 
         # if word doesn't fit rules, skip it
         elif fin == "":
@@ -205,21 +228,25 @@ def main(filepath):
         elif not(isinstance(fin, list)):
             new_pass = cryptic(fin)
             if password == new_pass:
-                success = True
-                print(fin + " is the password")
-                break
+                return fin
 
-    if not success:
+
     # Here we have broken out of the dictionary meaning that we need to check rule #2 and #4
-        five_digit_product = five_digit_list()
-        cart_helper(five_digit_product, password)
+    five_digit_product = five_digit_list()
+    for it in five_digit_product:
+        if password == cryptic(it):
+            print(it)
+            return it
 
-        cartesian_product = up_to_seven_digits()
-        cart_helper(cartesian_product, password)
+    cartesian_product = up_to_seven_digits()
+    for it in cartesian_product:
+        if password == cryptic(it):
+            print(it)
+            return it
 
-        print("Couldn't crack the password... :(")
+    return None
 
 
+if __name__ == '__main__':
+    r_w_passwords("no_args", "no_args")
 
-if __name__=="__main__":
-    main("no_args")
