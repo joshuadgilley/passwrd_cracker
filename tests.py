@@ -10,14 +10,14 @@ file = open("test_in.txt", "w")
 # RULE 1 ########################################
 # Testing words that are seven characters long
 
-# Danny's expected password is Bismark9
-print("danny:fe488b10bcd7f16a3efbfb2710bd724e93dc1cc7f61cf49059d8b1b26883d25b:other", file=file)
+# Danny's expected password is Bismite9
+print("danny:937cbebf533bdb4b2b671286fdfedb8244d19b9b82ddb6f72a7206586dd3b965:other", file=file)
 
-# Ernie's expected password is Zooming3
-print("ernie:dc7681d28545888687f802f93805634255d026c0981278b86f65b0f279f4fe52:other", file=file)
+# Ernie's expected password is Zyzomys3
+print("ernie:4b2c1449f2c0c942c056cb681fcfd15e7702de9f66204c6fb16b91d29665b6c9:other", file=file)
 
-# Patricia's expected password is Yachted0
-print("patricia:7ab599aa2a07c43d2317de540b3d1d32513037bde599abf9bd43e1e687fd4308:other", file=file)
+# Patricia's expected password is Wiggish0
+print("patricia:814d8d163812b67a57f7cf8a9212c3016b7e5c11716a6bfff005ef620af6e40e:other", file=file)
 
 # RULE 2 ########################################
 # Testing 5 digit password with at least one '~!# or *' at the beginning
@@ -34,14 +34,14 @@ print("donnie:9dd3974cc9fee0652f35f2a7a4481a9c8e7f4b00ea72e86fe6fd7d42e4f8c060:o
 # RULE 3 ##########################################
 # Testing five character word with a letter a -> @ and l -> 1
 
-# Monique's expected password is Afghanistan
-print("monique:5dbddf911f9e565299428e948a92ea5d1943c4099db883cc4491cb32cc757de8:other", file=file)
+# Monique's expected password is 1inj@
+print("monique:b31e111610cd7da64f39da9f4ab8afbd145324ecb6c751e145642b50d641690d:other", file=file)
 
-# Patrick's expected password is leadership
-print("patrick:9e720e53885580b1e0c5866c98e04988f0b0d071037fb54621a5180ba29e72e7:other", file=file)
+# Patrick's expected password is @gi1e
+print("patrick:281841ae8d2eb422016a04f4d472c6e3c4b90bf8a995e94d6ee66b95a23dc1a3:other", file=file)
 
-# Dave's expected password is leafletting
-print("dave:87e1eb2af244cae9dbd8b67a0b49ea8c600944c8c6170710058d20a272878743:other", file=file)
+# Dave's expected password is 11@m@
+print("dave:035d931c3c8c00b20f1dc74d2e5dc2fcc677ab2e65e19eba887dece1c63fee82:other", file=file)
 
 # RULE 4 ##########################################
 # Testing word that is made with digits up to 7 digits in length

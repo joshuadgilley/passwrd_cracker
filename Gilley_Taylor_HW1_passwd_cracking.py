@@ -42,7 +42,7 @@ def five_digit_special_begin(num):
 def five_letter_a_l_switch(word):
     valid = False
 
-    if len(word) == 5 and word.isalpha() and (word.find('a') != -1 or word.find('l') != -1):
+    if len(word) == 5 and word.isalpha() and (word.find('a') != -1 and word.find('l') != -1):
         valid = True
 
     return valid
@@ -81,23 +81,20 @@ def rules(word):
     # A five char word with the letter 'a' in it which gets replaced with the special
     # character @ and the character ‘l’ is substituted by the number ‘1’.
     if five_letter_a_l_switch(word):
-        w = list(word)
 
-        if word.find('a') != -1 and word.find('l') != -1:
-            i = w.index('a')
-            j = w.index('l')
-            w[i] = '@'
-            w[j] = '1'
-            b = ''.join(w)
-        elif word.find('a') != -1:
-            i = w.index('a')
-            w[i] = '@'
-            b = ''.join(w)
-        else:
-            i = w.index('l')
-            w[i] = '1'
-            b = ''.join(w)
-        return b
+        changed_word = ""
+
+        for i in range(len(word)):
+            if word[i] == 'a':
+                changed_word += "@"
+
+            elif word[i] == 'l':
+                changed_word += "1"
+
+            else:
+                changed_word += word[i]
+
+        return changed_word
 
     # Any number of chars single word from /usr/share/dict/words (Linux or Mac)
     elif single_words_no_spaces(word):
@@ -269,4 +266,7 @@ def main(file_line):
 
 if __name__ == '__main__':
     r_w_passwords("no_args", "no_args")
+
+
+
 
