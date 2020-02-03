@@ -67,6 +67,11 @@ print("codey:0d36c2425ba0be53e56b9648754fa056070910cd56ae9299e0dc411ba50299ca:ot
 # Maybell's password is zonked
 print("maybell:292670667ec43333bdc9382dbc26c47af1d0ef523e12242cee94ab5c0f85f753:other", file=file)
 
+# TESTING A NOT FOUND PASSWORD ##################################################
+
+# Should fail's password is not**gonnaWrk
+print("shouldFail:b5ac06f81a0aa5ef9d60efb73eb7efe13607f3b683d4eda02698886bc6e82cd2:other", file=file)
+
 file.close()
 
 r_w_passwords("test_in.txt", "test_out.txt")
