@@ -42,7 +42,7 @@ def five_digit_special_begin(num):
 def five_letter_a_l_switch(word):
     valid = False
 
-    if len(word) == 5 and word.isalpha() and (word.find('a') != -1 and word.find('l') != -1):
+    if len(word) == 5 and word.isalpha() and ((word.find('a') != -1 or word.find('l') != -1)):
         valid = True
 
     return valid
@@ -187,7 +187,7 @@ def r_w_passwords(userIn, userOut):
         if cracked is not None:
 
             print("Success!")
-            print("Password is: " + encrypted_password + ":" + cracked)
+            print("Encrypted:password is: " + encrypted_password + ":" + cracked)
             print(encrypted_password + ":" + cracked, file=outfile)
 
 

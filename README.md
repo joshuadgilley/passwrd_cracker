@@ -1,7 +1,7 @@
 # passwrd_cracker
 #####Simple Password Cracker made with Python by Josh Gilley and Chris Taylor
 
-##T here are two ways to run the program.
+##There are two ways to run the program.
 1. You may use our testing and you will not have to provide your own files
 2. You may provide your own files with your passwords in a specific format
 follow instructions below for either way
@@ -22,8 +22,8 @@ hashcode:other information
 
 2. Run Gilley_Taylor_HW1_passwd_cracking.py
 
-3. A command prompt will pop up in the IDE. Type in your in file and hit enter. Then type your
-out file and hit enter.
+3. A command prompt will pop up in the IDE. Type in your "in" file name and hit enter. Then type your
+"out" file and hit enter.
 
 4. The program will begin to try and crack the passwords in your in file. 
 
