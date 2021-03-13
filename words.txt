@@ -72833,10 +72833,10 @@ prognostics
 program
 program's
 programed
-programer
-programer's
-programers
-programing
+programmer
+programmer's
+programmers
+programming
 programmable
 programmable's
 programmables
